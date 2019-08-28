@@ -8,9 +8,8 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - /home/fernando/volumes/postgresql/data:/var/lib/postgresql/data 
-    networks:
-      - postgres-compose-network
+      - /home/fernando/volumes/postgresql/data:/var/lib/postgresql/data
+    container_name: postgres
       
   pgadmin4:
     image: dpage/pgadmin4
@@ -21,9 +20,4 @@ services:
       - "15432:80"
     depends_on:
       - postgres
-    networks:
-      - postgres-compose-network
-
-networks: 
-  postgres-compose-network:
-    driver: bridge
+    container_name: pgadmin4
