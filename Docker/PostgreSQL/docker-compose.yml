@@ -2,7 +2,7 @@ version: '3'
 
 services:
   postgres:
-    image: postgres
+    image: postgres:11
     environment:
       POSTGRES_PASSWORD: "Postgres2019!"
     ports:
@@ -12,7 +12,7 @@ services:
     container_name: postgres
       
   pgadmin4:
-    image: dpage/pgadmin4
+    image: dpage/pgadmin4:4.12
     environment:
       PGADMIN_DEFAULT_EMAIL: "paschualetto@gmail.com"
       PGADMIN_DEFAULT_PASSWORD: "PgAdmin2019!"
