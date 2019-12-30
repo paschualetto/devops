@@ -1,9 +1,17 @@
+variable "virginia" {
+  default = "us-east-1"
+}
+
+variable "ohio" {
+  default = "us-east-2"
+}
+
 variable "amis" {
   type = map
 
   default = {
-      "us-east-1" = "ami-04b9e92b5572fa0d1"
-      "us-east-2" = "ami-0dacb0c129b49f529"
+      "virginia" = "ami-04b9e92b5572fa0d1"
+      "ohio" = "ami-0dacb0c129b49f529"
   }
 }
 

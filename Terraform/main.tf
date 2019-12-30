@@ -1,46 +1,40 @@
 provider "aws" {
+  alias = "virginia"
   version = "~> 2.0"
-  region  = "us-east-1"
+  region  = var.virginia
 }
 
 provider "aws" {
-  alias = "us-east-2"
+  alias = "ohio"
   version = "~> 2.0"
-  region  = "us-east-2"
+  region  = var.ohio
 }
 
-resource "aws_instance" "dev" {
-  count = 3
-  ami = var.amis["us-east-1"]
+resource "aws_instance" "server1" {
+  count = 2
+  provider = aws.virginia
+  ami = var.amis["virginia"]
   instance_type = var.instance_type
   key_name = var.key_name
   tags = {
-      Name = "dev${count.index}"
+      Name = "TF-virginia-${count.index}"
   }
-  vpc_security_group_ids = ["${aws_security_group.allow_ssh.id}"]
+  vpc_security_group_ids = ["${aws_security_group.allow_ssh_virginia.id}"]
 }
 
-resource "aws_instance" "dev4" {
-  ami = var.amis["us-east-1"]
+resource "aws_instance" "server2" {
+  count = 2
+  provider = aws.ohio
+  ami = var.amis["ohio"]
   instance_type = var.instance_type
   key_name = var.key_name
   tags = {
-      Name = "dev4"
+      Name = "TF-ohio-${count.index}"
   }
-  vpc_security_group_ids = ["${aws_security_group.allow_ssh.id}"]
-  depends_on = [aws_s3_bucket.dev4]
+  vpc_security_group_ids = ["${aws_security_group.allow_ssh_ohio.id}"]
 }
 
-resource "aws_instance" "dev5" {
-  ami = var.amis["us-east-1"]
-  instance_type = var.instance_type
-  key_name = var.key_name
-  tags = {
-      Name = "dev5"
-  }
-  vpc_security_group_ids = ["${aws_security_group.allow_ssh.id}"]
-}
-
+/* Comment to destroy this instance
 resource "aws_instance" "dev6" {
   provider = aws.us-east-2
   ami = var.amis["us-east-2"]
@@ -52,18 +46,9 @@ resource "aws_instance" "dev6" {
   vpc_security_group_ids = ["${aws_security_group.allow_ssh-us-east-2.id}"]
   depends_on = [aws_dynamodb_table.dynamodb-homolog]
 }
+*/
 
-resource "aws_instance" "dev7" {
-  provider = aws.us-east-2
-  ami = var.amis["us-east-2"]
-  instance_type = var.instance_type
-  key_name = var.key_name
-  tags = {
-      Name = "dev7"
-  }
-  vpc_security_group_ids = ["${aws_security_group.allow_ssh-us-east-2.id}"]
-}
-
+/*
 resource "aws_s3_bucket" "dev4" {
   bucket = "paschualetto-dev4"
   acl    = "private"
@@ -72,7 +57,10 @@ resource "aws_s3_bucket" "dev4" {
     Name = "paschualetto-dev4"
   }
 }
+*/
 
+/*
+# terraform destroy -target aws_dynamodb_table.dynamodb-homolog
 resource "aws_dynamodb_table" "dynamodb-homolog" {
   provider       = aws.us-east-2
   name           = "UserData"
@@ -90,3 +78,4 @@ resource "aws_dynamodb_table" "dynamodb-homolog" {
     type = "S"
   }
 }
+*/

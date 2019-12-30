@@ -1,4 +1,5 @@
-resource "aws_security_group" "allow_ssh" {
+resource "aws_security_group" "allow_ssh_virginia" {
+  provider    = aws.virginia
   name        = "allow_ssh"
   description = "Allow SSH inbound traffic"
 
@@ -16,8 +17,8 @@ resource "aws_security_group" "allow_ssh" {
   }
 }
 
-resource "aws_security_group" "allow_ssh-us-east-2" {
-  provider    = aws.us-east-2
+resource "aws_security_group" "allow_ssh_ohio" {
+  provider    = aws.ohio
   name        = "allow_ssh"
   description = "Allow SSH inbound traffic"
 
