@@ -13,3 +13,7 @@ output "tf-oh-cl1-0" {
 output "tf-oh-cl1-1" {
   value = "${aws_instance.oh-cluster-1[1].public_ip}"
 }
+
+output "tf-vg-server-images" {
+  value = "${aws_instance.vg-server-images.public_ip}"
+}

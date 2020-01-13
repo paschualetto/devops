@@ -35,3 +35,24 @@ resource "aws_security_group" "allow_ssh_ohio" {
     Name = "allow_ssh"
   }
 }
+
+/*
+resource "aws_security_group" "allow_oracle" {
+  provider    = aws.virginia
+  name        = "allow_oracle"
+  description = "Allow Oracle inbound traffic"
+
+  ingress {
+    from_port   = 1521
+    to_port     = 1521
+    protocol    = "tcp"
+    # Please restrict your ingress to only necessary IPs and ports.
+    # Opening to 0.0.0.0/0 can lead to security vulnerabilities.
+    cidr_blocks = var.cdirs_block_ssh
+  }
+
+  tags = {
+    Name = "allow_oracle"
+  }
+}
+*/
