@@ -21,7 +21,7 @@ resource "aws_instance" "server-images" {
   tags = {
       Name = "tf-server-images"
   }
-  vpc_security_group_ids = ["${aws_security_group.allow_ssh.id}", "${aws_default_security_group.default.id}"]
+  vpc_security_group_ids = ["${aws_security_group.allow_ssh.id}", "${aws_default_security_group.default.id}", "${aws_security_group.allow_www.id}"]
   depends_on = [aws_s3_bucket.bucketlabs]
 }
 
