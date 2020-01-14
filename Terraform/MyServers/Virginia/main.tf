@@ -3,7 +3,7 @@ provider "aws" {
   region  = var.virginia
 }
 
-resource "aws_instance" "cluster-1" {
+/*resource "aws_instance" "cluster-1" {
   count = 2
   ami = var.amis["ubuntu-18"]
   instance_type = var.instance_type
@@ -11,8 +11,11 @@ resource "aws_instance" "cluster-1" {
   tags = {
       Name = "tf-cl1-${count.index}"
   }
-  vpc_security_group_ids = ["${aws_security_group.allow_ssh.id}", "${aws_default_security_group.default.id}"]
-}
+  vpc_security_group_ids = [
+                            "${aws_security_group.allow_ssh.id}", 
+                            "${aws_default_security_group.default.id}"
+                           ]
+}*/
 
 resource "aws_instance" "server-images" {
   ami = var.amis["ubuntu-18"]
@@ -21,7 +24,11 @@ resource "aws_instance" "server-images" {
   tags = {
       Name = "tf-server-images"
   }
-  vpc_security_group_ids = ["${aws_security_group.allow_ssh.id}", "${aws_default_security_group.default.id}", "${aws_security_group.allow_www.id}"]
+  vpc_security_group_ids = [
+                            "${aws_security_group.allow_ssh.id}", 
+                            "${aws_default_security_group.default.id}", 
+                            "${aws_security_group.allow_www.id}"
+                           ]
   depends_on = [aws_s3_bucket.bucketlabs]
 }
 
