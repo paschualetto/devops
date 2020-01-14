@@ -1,7 +1,3 @@
-variable "virginia" {
-  default = "us-east-1"
-}
-
 variable "ohio" {
   default = "us-east-2"
 }
@@ -28,7 +24,6 @@ variable "amis" {
   type = map
 
   default = {
-      "virginia" = "ami-04b9e92b5572fa0d1"
-      "ohio" = "ami-0d5d9d301c853a04a"
+      "ubuntu-18" = "ami-0d5d9d301c853a04a"
   }
 }

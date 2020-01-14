@@ -1,24 +1,20 @@
-resource "aws_security_group" "allow_ssh_virginia" {
-  provider    = aws.virginia
-  name        = "allow_ssh"
-  description = "Allow SSH inbound traffic"
+resource "aws_default_security_group" "default" {
+  vpc_id = "vpc-e24e6898" 
 
-  ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    # Please restrict your ingress to only necessary IPs and ports.
-    # Opening to 0.0.0.0/0 can lead to security vulnerabilities.
-    cidr_blocks = var.cdirs_block_ssh
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
   }
 
   tags = {
-    Name = "allow_ssh"
+    Name = "default"
+    Description = "default VPC security group"
   }
 }
 
-resource "aws_security_group" "allow_ssh_ohio" {
-  provider    = aws.ohio
+resource "aws_security_group" "allow_ssh" {
   name        = "allow_ssh"
   description = "Allow SSH inbound traffic"
 
@@ -26,8 +22,6 @@ resource "aws_security_group" "allow_ssh_ohio" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    # Please restrict your ingress to only necessary IPs and ports.
-    # Opening to 0.0.0.0/0 can lead to security vulnerabilities.
     cidr_blocks = var.cdirs_block_ssh
   }
 
