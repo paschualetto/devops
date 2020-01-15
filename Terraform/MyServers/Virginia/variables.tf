@@ -25,5 +25,6 @@ variable "amis" {
 
   default = {
       "ubuntu-18" = "ami-04b9e92b5572fa0d1"
+      "ubuntu-16" = "ami-04763b3055de4860b"
   }
 }

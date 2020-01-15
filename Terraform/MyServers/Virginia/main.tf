@@ -32,7 +32,7 @@ resource "aws_instance" "jenkins" {
 }
 
 resource "aws_instance" "server-images" {
-  ami = var.amis["ubuntu-18"]
+  ami = var.amis["ubuntu-16"]
   instance_type = var.instance_type
   key_name = var.key_name
   tags = {
