@@ -46,6 +46,29 @@ resource "aws_security_group" "allow_www" {
   }
 }
 
+resource "aws_security_group" "allow_jenkins" {
+  name        = "allow_jenkins"
+  description = "Allow jenkins traffic"
+
+  ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 50000
+    to_port     = 50000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "allow_jenkins"
+  }
+}
+
 /*
 resource "aws_security_group" "allow_oracle" {
   provider    = aws.virginia

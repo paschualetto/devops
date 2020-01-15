@@ -17,6 +17,20 @@ provider "aws" {
                            ]
 }*/
 
+resource "aws_instance" "jenkins" {
+  ami = var.amis["ubuntu-18"]
+  instance_type = var.instance_type
+  key_name = var.key_name
+  tags = {
+      Name = "tf-jenkins"
+  }
+  vpc_security_group_ids = [
+                            "${aws_security_group.allow_ssh.id}", 
+                            "${aws_default_security_group.default.id}", 
+                            "${aws_security_group.allow_jenkins.id}"
+                           ]
+}
+
 resource "aws_instance" "server-images" {
   ami = var.amis["ubuntu-18"]
   instance_type = var.instance_type

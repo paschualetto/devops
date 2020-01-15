@@ -5,7 +5,7 @@ variable "virginia" {
 variable "cdirs_block_ssh" {
   type = list
 
-  default = ["179.184.65.86/32"]
+  default = ["179.184.65.86/32", "187.95.104.95/32"]
 }
 
 variable "key_name" {
