@@ -18,6 +18,9 @@ VOLUME /var/www/html/
 
 EXPOSE 80
 
+HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \ 
+    CMD [ "curl", "-f", "http://localhost/", "||", "exit 1" ]
+
 ENTRYPOINT [ "/usr/sbin/apachectl" ]
 # Exec mode:
 CMD [ "-D", "FOREGROUND" ] 

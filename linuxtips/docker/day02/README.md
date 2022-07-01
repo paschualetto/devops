@@ -60,6 +60,7 @@ docker image build -t my_apache:2.0.0 .
 docker image build -t my_apache:2.0.0 . --no-cache
 
 cd dockerfiles/3
+docker image build -t my_apache:3.0.0 . --no-cache
 docker container run -d -p 8080:80 my_apache:3.0.0
 
 cd dockerfiles/4
