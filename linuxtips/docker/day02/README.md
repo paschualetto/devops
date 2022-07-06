@@ -70,4 +70,17 @@ docker image build -t mygo:1.0 .
 cd dockerfiles/5
 go mod init example/hello
 docker image build -t mygo:2.0 .
+
+docker container run -it --name ubuntu ubuntu
+apt-get update && apt-get install -y vim git
+ctrl + p + q
+docker commit -m "Ubuntu com vim e git" ubuntu
+docker image tag <image_id> ubuntu_vim_git:1.0.0
+docker container run -it ubuntu_vim_git:1.0.0
+docker login
+docker push
+
+docker container run -d -p 5000:5000 --restart=always --name registry registry:2
+docker image tag <image_id> localhost:5000/ubuntu_vim_git:1.0.0
+docker push localhost:5000/ubuntu_vim_git:1.0.0
 ```

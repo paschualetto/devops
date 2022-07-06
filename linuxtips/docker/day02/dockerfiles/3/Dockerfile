@@ -1,6 +1,6 @@
 FROM debian
 
-RUN apt-get update && apt-get install -y apache2 && apt-get clean
+RUN apt-get update && apt-get install -y apache2 curl && apt-get clean
 
 ENV APACHE_LOCK_DIR="/var/lock"
 ENV APACHE_PID_FILE="/var/run/apache2.pid"
@@ -18,8 +18,8 @@ VOLUME /var/www/html/
 
 EXPOSE 80
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=5s --retries=3 \ 
-    CMD [ "curl", "-f", "http://localhost/", "||", "exit 1" ]
+HEALTHCHECK --interval=10s --timeout=5s --start-period=20s --retries=3 \ 
+    CMD curl -f http://localhost/ || exit 1
 
 ENTRYPOINT [ "/usr/sbin/apachectl" ]
 # Exec mode:
