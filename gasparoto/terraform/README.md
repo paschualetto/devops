@@ -47,4 +47,7 @@ terraform import aws_s3_bucket.bucket <bucket_name>
 terraform fmt -recursive
 
 terraform init -backend=true -backend-config="backend.hcl"
+
+terraform output
+terraform output <output_name>
 ```
