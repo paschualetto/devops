@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: sonarqube-volume-claim
+  namespace: br-common-qa
+  labels:
+    app: sonarqube
+spec:
+  storageClassName: storagepersistente-sa-east-1c
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi

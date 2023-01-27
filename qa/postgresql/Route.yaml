@@ -1,0 +1,19 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: br-common-qa-postgres
+  namespace: br-common-qa
+  labels:
+    app: postgres
+  name: postgres
+spec:
+  host: br-common-qa-postgres-br-common-qa.apps.brocp.openshift.br.com.br
+  to:
+    kind: Service
+    name: postgres
+    weight: 100
+  port:
+    targetPort: 5432
+  tls:
+    termination: edge
+  wildcardPolicy: None

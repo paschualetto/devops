@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ubuntu
+  labels:
+    app: ubuntu
+spec:
+  containers:
+    - image: default-route-openshift-image-registry.apps.brocp.openshift.br.com.br/br-common-qa/ubuntu:22.04
+      command:
+        - "sleep"
+        - "604800"
+      imagePullPolicy: IfNotPresent
+      name: ubuntu
+  restartPolicy: Always
+  volumes:
+    - name: sonarqube-data
+      persistentVolumeClaim:
+        claimName: sonarqube-volume-claim
