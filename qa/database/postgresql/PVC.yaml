@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-sonarqube
-  namespace: sonarqube
+  name: pvc-postgresql
+  namespace: database
 spec:
-  volumeName: pv-sonarqube
+  volumeName: pv-postgresql
   accessModes:
     - ReadWriteMany
   resources:
     requests:
-      storage: 1Gi
+      storage: 2Gi

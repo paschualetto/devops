@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: br-common-qa-postgres
-  namespace: br-common-qa
+  name: postgresql
+  namespace: database
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: postgres
+      app: postgresql
   template:
     metadata:
       labels:
-        app: postgres
+        app: postgresql
     spec:
       containers:
-        - name: postgres
-          image:  default-route-openshift-image-registry.apps.brocp.openshift.br.com.br/br-common-qa/postgres:12
+        - name: postgresql
+          image:  postgres:15
           imagePullPolicy: "IfNotPresent"
           ports:
             - containerPort: 5432
@@ -23,9 +23,9 @@ spec:
             - secretRef:
                 name: postgres-secret
           volumeMounts:
-            - mountPath: /var/lib/pgsql/data
+            - mountPath: /var/lib/postgresql/data
               name: postgresdata
       volumes:
         - name: postgresdata
           persistentVolumeClaim:
-            claimName: postgres-volume-claim
+            claimName: pvc-postgresql

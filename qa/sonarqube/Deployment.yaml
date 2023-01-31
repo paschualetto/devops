@@ -1,8 +1,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: br-common-qa-sonarqube
-  namespace: br-common-qa
+  name: sonarqube
+  namespace: sonarqube
 spec:
   replicas: 1
   selector:
@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: sonarqube
-          image: default-route-openshift-image-registry.apps.brocp.openshift.br.com.br/br-common-qa/sonarqube:9.8.0-community
+          image: sonarqube:9.8.0-community
           imagePullPolicy: "IfNotPresent"
           ports:
             - containerPort: 9000
@@ -25,11 +25,9 @@ spec:
           volumeMounts:
             - name: sonarqube-data
               mountPath: "/opt/sonarqube/data/"
-              subpath: data
             - name: sonarqube-data
               mountPath: "/opt/sonarqube/extensions/"
-              subpath: extensions
       volumes:
         - name: sonarqube-data
           persistentVolumeClaim:
-            claimName: sonarqube-volume-claim
+            claimName: pvc-sonarqube
