@@ -1,0 +1,47 @@
+version: '3.7'
+
+volumes:
+  dependency-track:
+
+services:
+  dtrack-apiserver:
+    image: dependencytrack/apiserver
+    environment:
+    - ALPINE_DATABASE_MODE=external
+    - ALPINE_DATABASE_URL=jdbc:postgresql://postgres10:5432/dtrack
+    - ALPINE_DATABASE_DRIVER=org.postgresql.Driver
+    - ALPINE_DATABASE_USERNAME=dtrack
+    - ALPINE_DATABASE_PASSWORD=changeme
+    - ALPINE_DATABASE_POOL_ENABLED=true
+    - ALPINE_DATABASE_POOL_MAX_SIZE=20
+    - ALPINE_DATABASE_POOL_MIN_IDLE=10
+    - ALPINE_DATABASE_POOL_IDLE_TIMEOUT=300000
+    - ALPINE_DATABASE_POOL_MAX_LIFETIME=600000
+    deploy:
+      resources:
+        limits:
+          memory: 12288m
+        reservations:
+          memory: 8192m
+      restart_policy:
+        condition: on-failure
+    ports:
+      - '8081:8080'
+    volumes:
+      - 'dependency-track:/data'
+    restart: unless-stopped
+
+  dtrack-frontend:
+    image: dependencytrack/frontend
+    depends_on:
+      - dtrack-apiserver
+    environment:
+      - API_BASE_URL=https://dtrack.example.local:8443
+    volumes:
+      - 'dependency-frontend:/data:ro'
+      - "/var/lib/docker/volumes/dtrack_dependency-frontend/_data/default.conf:/etc/nginx/conf.d/default.conf"
+    ports:
+      - "80:8080"
+      - "443:9443"
+      - "8443:8443"
+    restart: unless-stopped
